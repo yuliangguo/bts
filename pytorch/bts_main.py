@@ -422,7 +422,7 @@ def main_worker(gpu, ngpus_per_node, args):
     num_log_images = args.batch_size
     end_learning_rate = args.end_learning_rate if args.end_learning_rate != -1 else 0.1 * args.learning_rate
 
-    var_sum = [var.sum() for var in model.parameters() if var.requires_grad]
+    var_sum = [var.sum().item() for var in model.parameters() if var.requires_grad]
     var_cnt = len(var_sum)
     var_sum = np.sum(var_sum)
 
@@ -467,7 +467,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
             duration += time.time() - before_op_time
             if global_step and global_step % args.log_freq == 0 and not model_just_loaded:
-                var_sum = [var.sum() for var in model.parameters() if var.requires_grad]
+                var_sum = [var.sum().item() for var in model.parameters() if var.requires_grad]
                 var_cnt = len(var_sum)
                 var_sum = np.sum(var_sum)
                 examples_per_sec = args.batch_size / duration * args.log_freq

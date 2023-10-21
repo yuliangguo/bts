@@ -3,6 +3,7 @@
 
 # Notebook checkpoints
 .ipynb_checkpoints
+.vscode
 
 # python cache files
 *.pyc
